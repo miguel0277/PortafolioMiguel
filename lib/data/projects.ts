@@ -24,7 +24,7 @@ export const dataProjects: Project[] = [
     description:
       "Aplicación integral desarrollada en Power Apps para Ecopetrol GRB. Gestión de solicitudes de equipos de levantamiento mecánico con trazabilidad del 100%, dashboard ejecutivo en Power BI y flujos automatizados con Power Automate. 313+ solicitudes gestionadas, 2363 millones en valor ahorrativo.",
     icon: "Crane",
-    images: ["/projects/AppGoliat.png", "/projects/PantallasGoliat.png", "/projects/PowerBiGoliat.png"],
+    images: ["/projects/PowerBiGoliat.png"],
     techStack: [
       { name: "Power Apps", color: "#742774" },
       { name: "Power BI", color: "#F2C811" },
