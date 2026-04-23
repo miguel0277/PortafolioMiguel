@@ -2,41 +2,54 @@
 
 import { motion } from "framer-motion";
 import { KaddaOrnament } from "./KaddaLogo";
-import { GraduationCap, Award, Sparkles, Languages } from "lucide-react";
+import { Sparkles } from "lucide-react";
+import { KaddaBadge, type BadgeGlyph, type BadgeTone } from "./KaddaBadge";
 
-const CERTIFICATIONS = [
+const CERTIFICATIONS: Array<{
+  glyph: BadgeGlyph;
+  tone: BadgeTone;
+  institution: string;
+  program: string;
+  meta: string;
+}> = [
   {
-    icon: GraduationCap,
+    glyph: "academy",
+    tone: "burgundy",
     institution: "Universidad Santo Tomás",
     program: "Diseño de Interacción",
     meta: "7° semestre · 2023 –",
   },
   {
-    icon: Award,
+    glyph: "interface",
+    tone: "ink",
     institution: "Coderhouse",
     program: "Carrera UX/UI Design",
     meta: "2024",
   },
   {
-    icon: Award,
+    glyph: "award",
+    tone: "burgundyDeep",
     institution: "Coderhouse",
     program: "Diseño UX/UI Avanzado",
     meta: "2023",
   },
   {
-    icon: Award,
+    glyph: "research",
+    tone: "slate",
     institution: "Coderhouse",
     program: "UX Research",
     meta: "2023",
   },
   {
-    icon: Award,
+    glyph: "writing",
+    tone: "burgundy",
     institution: "Coderhouse",
     program: "UX Writing",
     meta: "2023",
   },
   {
-    icon: Languages,
+    glyph: "language",
+    tone: "ink",
     institution: "Idiomas",
     program: "Español nativo · Inglés B1",
     meta: "Comunicativo",
@@ -128,34 +141,31 @@ export default function Insignias() {
 
         {/* Certifications grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
-          {CERTIFICATIONS.map((cert, i) => {
-            const Icon = cert.icon;
-            return (
-              <motion.article
-                key={cert.program}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.6, delay: 0.05 * i }}
-                className="group relative flex gap-4 rounded-2xl border border-[color:var(--color-border)] bg-[color:var(--color-cream)] p-5 hover:border-[color:var(--color-burgundy)]/50 hover:-translate-y-0.5 transition-all duration-500"
-              >
-                <div className="shrink-0 h-11 w-11 rounded-xl bg-[color:var(--color-burgundy)] text-[color:var(--color-cream)] grid place-items-center group-hover:bg-[color:var(--color-burgundy-deep)] transition-colors">
-                  <Icon className="h-5 w-5" strokeWidth={1.5} />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-[11px] uppercase tracking-[0.22em] text-[color:var(--color-burgundy)]/70">
-                    {cert.institution}
-                  </p>
-                  <h3 className="mt-1 font-display text-xl text-[color:var(--color-burgundy)] leading-tight">
-                    {cert.program}
-                  </h3>
-                  <p className="mt-2 text-xs text-[color:var(--color-text)]/60">
-                    {cert.meta}
-                  </p>
-                </div>
-              </motion.article>
-            );
-          })}
+          {CERTIFICATIONS.map((cert, i) => (
+            <motion.article
+              key={cert.program}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.6, delay: 0.05 * i }}
+              className="group relative flex gap-4 rounded-2xl border border-[color:var(--color-border)] bg-[color:var(--color-cream)] p-5 hover:border-[color:var(--color-burgundy)]/50 hover:-translate-y-0.5 transition-all duration-500"
+            >
+              <div className="shrink-0 transition-transform duration-500 group-hover:-rotate-3 group-hover:scale-[1.04]">
+                <KaddaBadge glyph={cert.glyph} tone={cert.tone} size={56} />
+              </div>
+              <div className="flex-1 min-w-0 pt-0.5">
+                <p className="text-[11px] uppercase tracking-[0.22em] text-[color:var(--color-burgundy)]/70">
+                  {cert.institution}
+                </p>
+                <h3 className="mt-1 font-display text-xl text-[color:var(--color-burgundy)] leading-tight">
+                  {cert.program}
+                </h3>
+                <p className="mt-2 text-xs text-[color:var(--color-text)]/60">
+                  {cert.meta}
+                </p>
+              </div>
+            </motion.article>
+          ))}
         </div>
 
         {/* Tools */}
