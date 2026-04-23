@@ -47,8 +47,17 @@ body {
   color: var(--color-text);
   background: var(--color-bg);
   font-family: var(--font-sans);
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: 0.005em;
+}
+
+/* Paragraphs & general copy — slightly heavier for legibility */
+p,
+li,
+dd,
+figcaption,
+blockquote {
+  font-weight: 500;
 }
 
 ::selection {
