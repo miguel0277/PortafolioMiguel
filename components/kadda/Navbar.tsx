@@ -58,7 +58,7 @@ export default function Navbar() {
 
           <a
             href="mailto:karold.antolinez@outlook.com"
-            className="hidden md:inline-flex btn-arrow items-center gap-2 rounded-full bg-[color:var(--color-burgundy)] px-5 py-2.5 text-xs tracking-[0.18em] uppercase text-[color:var(--color-cream)] transition-colors hover:bg-[color:var(--color-burgundy-deep)]"
+            className="hidden md:inline-flex btn-arrow items-center gap-2 rounded-full bg-[color:var(--color-ink)] px-5 py-2.5 text-xs tracking-[0.18em] uppercase text-[color:var(--color-cream)] transition-colors hover:bg-[color:var(--color-burgundy)]"
           >
             Hablemos
             <ArrowUpRight className="h-3.5 w-3.5" strokeWidth={1.75} />
@@ -103,7 +103,7 @@ export default function Navbar() {
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.25, duration: 0.5 }}
-                className="mt-6 inline-flex w-fit items-center gap-2 rounded-full bg-[color:var(--color-burgundy)] px-6 py-3 text-xs tracking-[0.2em] uppercase text-[color:var(--color-cream)]"
+                className="mt-6 inline-flex w-fit items-center gap-2 rounded-full bg-[color:var(--color-ink)] px-6 py-3 text-xs tracking-[0.2em] uppercase text-[color:var(--color-cream)]"
               >
                 Hablemos <ArrowUpRight className="h-4 w-4" />
               </motion.a>

@@ -144,28 +144,28 @@ export default function Hero() {
           >
             {/* Shadow/back card */}
             <div
-              className="absolute inset-0 translate-x-3 translate-y-3 rounded-[28px] bg-[color:var(--color-cream-deep)]"
+              className="absolute inset-0 translate-x-3 translate-y-3 rounded-[28px] bg-[color:var(--color-slate)]/30"
               aria-hidden="true"
             />
             {/* Main card */}
-            <div className="relative rounded-[28px] border-2 border-[color:var(--color-burgundy)] bg-[color:var(--color-cream)] px-8 py-12 overflow-hidden">
+            <div className="relative rounded-[28px] border-2 border-[color:var(--color-ink)] bg-[color:var(--color-ink)] px-8 py-12 overflow-hidden">
               {/* Corner ornaments */}
-              <div className="absolute top-4 left-4 w-10 text-[color:var(--color-burgundy)]">
+              <div className="absolute top-4 left-4 w-10 text-[color:var(--color-cream)]/80">
                 <KaddaOrnament />
               </div>
-              <div className="absolute bottom-4 right-4 w-10 text-[color:var(--color-burgundy)] rotate-180">
+              <div className="absolute bottom-4 right-4 w-10 text-[color:var(--color-cream)]/80 rotate-180">
                 <KaddaOrnament />
               </div>
 
               <div className="flex flex-col items-center text-center py-10">
-                <span className="font-display text-[140px] leading-none text-[color:var(--color-burgundy)]">
+                <span className="font-display text-[140px] leading-none text-[color:var(--color-cream)]">
                   k
                 </span>
-                <span className="mt-2 font-serif-italic text-[color:var(--color-burgundy)]/80 text-lg">
+                <span className="mt-2 font-serif-italic text-[color:var(--color-slate-soft)] text-lg">
                   Warm Precision
                 </span>
-                <div className="mt-6 h-px w-14 bg-[color:var(--color-burgundy)]/40" />
-                <span className="mt-6 text-[10px] uppercase tracking-[0.3em] text-[color:var(--color-ink)]/70">
+                <div className="mt-6 h-px w-14 bg-[color:var(--color-cream)]/40" />
+                <span className="mt-6 text-[10px] uppercase tracking-[0.3em] text-[color:var(--color-cream)]/70">
                   2023 — now
                 </span>
               </div>
