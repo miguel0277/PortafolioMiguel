@@ -1,27 +1,58 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import { Italiana, Outfit, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 
+const italiana = Italiana({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-italiana",
+  display: "swap",
+});
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  weight: ["200", "300", "400", "500", "600", "700"],
+  variable: "--font-outfit",
+  display: "swap",
+});
+
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["300", "400", "500"],
+  style: ["normal", "italic"],
+  variable: "--font-cormorant",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
-  title: "MP · Miguel Pardo | Ingeniero de Sistemas & Analista de Datos",
+  title: "kadda · Karold Alvarado — Diseñadora UX/UI",
   description:
-    "Portafolio profesional de Miguel Fernando Pardo Maldonado. Ingeniero de Sistemas e Informática, Analista de Datos, Desarrollador Web. Especialista en Power BI, DAX, Next.js y React.",
+    "Portafolio de Karold Dayana Alvarado Antolinez. Diseñadora de interacción UX/UI. Convierto necesidades reales en experiencias con propósito.",
   keywords: [
-    "Miguel Pardo",
-    "Ingeniero de Sistemas",
-    "Analista de Datos",
-    "Power BI",
-    "Next.js",
-    "React",
-    "Bucaramanga",
+    "Karold Alvarado",
+    "kadda",
+    "UX Designer",
+    "UI Designer",
+    "Diseño de Interacción",
+    "UX Research",
+    "Portafolio",
+    "Bogotá",
     "Colombia",
   ],
+  authors: [{ name: "Karold Alvarado" }],
   openGraph: {
-    title: "MP · Miguel Pardo",
+    title: "kadda · Karold Alvarado",
     description:
-      "Ingeniero de Sistemas e Informática · Analista de Datos · Desarrollador Web",
+      "Diseño de interacción con intención. Experiencias que conectan a las personas con lo que necesitan.",
     type: "website",
     locale: "es_CO",
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#FFE6D0",
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({
@@ -30,14 +61,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es">
-      <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body className="antialiased">{children}</body>
+    <html
+      lang="es"
+      className={`${italiana.variable} ${outfit.variable} ${cormorant.variable} bg-[color:var(--color-bg)]`}
+    >
+      <body className="antialiased font-sans bg-[color:var(--color-bg)] text-[color:var(--color-text)]">
+        {children}
+      </body>
     </html>
   );
 }

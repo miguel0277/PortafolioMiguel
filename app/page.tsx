@@ -1,29 +1,23 @@
-"use client";
-
-import Navbar from "@/components/sections/Navbar";
-import HeroSection from "@/components/sections/HeroSection";
-import AboutSection from "@/components/sections/AboutSection";
-import ExperienceTimeline from "@/components/sections/ExperienceTimeline";
-import CertificatesSection from "@/components/sections/CertificatesSection";
-import DataProjectsSection from "@/components/sections/DataProjectsSection";
-import WebProjectsSection from "@/components/sections/WebProjectsSection";
-import ServicesSection from "@/components/sections/ServicesSection";
-import ContactSection from "@/components/sections/ContactSection";
-import Footer from "@/components/sections/Footer";
+import Navbar from "@/components/kadda/Navbar";
+import Hero from "@/components/kadda/Hero";
+import Marquee from "@/components/kadda/Marquee";
+import About from "@/components/kadda/About";
+import Insignias from "@/components/kadda/Insignias";
+import Portfolio from "@/components/kadda/Portfolio";
+import Contact from "@/components/kadda/Contact";
+import Footer from "@/components/kadda/Footer";
 
 export default function Home() {
   return (
     <>
       <Navbar />
-      <main>
-        <HeroSection />
-        <AboutSection />
-        <ExperienceTimeline />
-        <DataProjectsSection />
-        <WebProjectsSection />
-        <CertificatesSection />
-        <ServicesSection />
-        <ContactSection />
+      <main className="relative">
+        <Hero />
+        <Marquee />
+        <About />
+        <Insignias />
+        <Portfolio />
+        <Contact />
       </main>
       <Footer />
     </>
