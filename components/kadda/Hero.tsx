@@ -1,7 +1,14 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import {
+  motion,
+  useMotionValue,
+  useScroll,
+  useSpring,
+  useTransform,
+  type MotionValue,
+} from "framer-motion";
+import { useEffect, useRef } from "react";
 import { KaddaOrnament } from "./KaddaLogo";
 import { ArrowDown } from "lucide-react";
 
@@ -14,8 +21,15 @@ const reveal = {
   }),
 };
 
+/** Helper to scale a normalized (-0.5, 0.5) MotionValue into a pixel range */
+function useScaled(mv: MotionValue<number>, amount: number) {
+  return useTransform(mv, (v) => v * amount);
+}
+
 export default function Hero() {
   const ref = useRef<HTMLElement | null>(null);
+
+  // Scroll parallax
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
@@ -24,11 +38,61 @@ export default function Hero() {
   const yOrn2 = useTransform(scrollYProgress, [0, 1], [0, 180]);
   const opacityBg = useTransform(scrollYProgress, [0, 0.7], [1, 0.4]);
 
+  // Mouse position normalized to (-0.5, 0.5) for each axis
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const sx = useSpring(mx, { stiffness: 80, damping: 20, mass: 0.6 });
+  const sy = useSpring(my, { stiffness: 80, damping: 20, mass: 0.6 });
+
+  // Different parallax depths for each element
+  const orn1X = useScaled(sx, -55);
+  const orn1Y = useScaled(sy, -40);
+  const orn2X = useScaled(sx, 40);
+  const orn2Y = useScaled(sy, 30);
+  const wordX = useScaled(sx, -14);
+  const wordY = useScaled(sy, -6);
+  const cardRotY = useScaled(sx, 14); // degrees
+  const cardRotX = useScaled(sy, -10);
+  const cardTx = useScaled(sx, 12);
+  const cardTy = useScaled(sy, 8);
+  const glowBg = useTransform(
+    [sx, sy],
+    ([x, y]) =>
+      `radial-gradient(420px circle at ${50 + (x as number) * 60}% ${
+        50 + (y as number) * 60
+      }%, color-mix(in oklch, var(--color-burgundy) 14%, transparent), transparent 60%)`,
+  );
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const handle = (e: PointerEvent) => {
+      const rect = el.getBoundingClientRect();
+      const nx = (e.clientX - rect.left) / rect.width - 0.5;
+      const ny = (e.clientY - rect.top) / rect.height - 0.5;
+      mx.set(nx);
+      my.set(ny);
+    };
+    const leave = () => {
+      mx.set(0);
+      my.set(0);
+    };
+
+    el.addEventListener("pointermove", handle);
+    el.addEventListener("pointerleave", leave);
+    return () => {
+      el.removeEventListener("pointermove", handle);
+      el.removeEventListener("pointerleave", leave);
+    };
+  }, [mx, my]);
+
   return (
     <section
       ref={ref}
       id="top"
       className="relative min-h-[100svh] overflow-hidden grain isolate flex items-center pt-28 pb-12 lg:pt-32"
+      style={{ perspective: 1200 }}
     >
       {/* Background subtle burgundy wash top */}
       <motion.div
@@ -37,9 +101,16 @@ export default function Hero() {
         aria-hidden="true"
       />
 
+      {/* Cursor-tracking warm glow */}
+      <motion.div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-60 mix-blend-multiply"
+        style={{ background: glowBg }}
+      />
+
       {/* Decorative ornaments floating */}
       <motion.div
-        style={{ y: yOrn1 }}
+        style={{ y: yOrn1, x: orn1X, translateY: orn1Y }}
         className="pointer-events-none absolute -top-10 -right-10 md:top-10 md:right-12 w-[220px] md:w-[320px] text-[color:var(--color-burgundy)]/10"
         aria-hidden="true"
       >
@@ -49,7 +120,7 @@ export default function Hero() {
       </motion.div>
 
       <motion.div
-        style={{ y: yOrn2 }}
+        style={{ y: yOrn2, x: orn2X, translateY: orn2Y }}
         className="pointer-events-none absolute -bottom-20 -left-16 md:left-10 md:bottom-24 w-[180px] md:w-[240px] text-[color:var(--color-slate)]/20"
         aria-hidden="true"
       >
@@ -77,7 +148,8 @@ export default function Hero() {
             initial="hidden"
             animate="show"
             custom={1}
-            className="mt-6 font-display text-[color:var(--color-burgundy)] leading-[0.88]"
+            style={{ x: wordX, y: wordY }}
+            className="mt-6 font-display text-[color:var(--color-burgundy)] leading-[0.88] will-change-transform"
           >
             <span className="block text-[clamp(4.5rem,16vw,13rem)]">kadda</span>
           </motion.h1>
@@ -135,12 +207,19 @@ export default function Hero() {
         </div>
 
         {/* RIGHT — Concept Card (inspired by "cartas" SVG) */}
-        <div className="lg:col-span-4">
+        <div className="lg:col-span-4" style={{ perspective: 1000 }}>
           <motion.div
             initial={{ opacity: 0, rotate: 8, y: 30 }}
             animate={{ opacity: 1, rotate: 6, y: 0 }}
             transition={{ duration: 1, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="relative mx-auto w-full max-w-[340px]"
+            style={{
+              rotateX: cardRotX,
+              rotateY: cardRotY,
+              x: cardTx,
+              y: cardTy,
+              transformStyle: "preserve-3d",
+            }}
+            className="relative mx-auto w-full max-w-[340px] will-change-transform"
           >
             {/* Shadow/back card */}
             <div
